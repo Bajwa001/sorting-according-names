@@ -20,6 +20,20 @@ struct node {
     struct node *next;
 };
 
+bool compare(char a[],char b[]){
+    int l1=(int)strlen(a),l2=(int)strlen(b);
+    int i=0;
+    while(i<l1&&i<l2){
+        if(a[i]==b[i])i++;
+        else{
+            if(a[i]>b[i]) return true;
+            else return false;
+        }
+    }
+    if(l1>l2)return true;
+    return false;
+}
+
 node *insert(node *head,char wor[],int i){
     node *t=new node;
     t->word=new char[50];
@@ -27,6 +41,7 @@ node *insert(node *head,char wor[],int i){
     if(i==0){
         node *pre=head;
         char start=head->word[0];
+        
         while(head!=NULL&&head->word[0]==start){
             pre=head;
             head=head->next;
@@ -34,6 +49,7 @@ node *insert(node *head,char wor[],int i){
         t->next=head;
         pre->next=t;
         return NULL;
+        
     }else{
         
         if(head==NULL){
@@ -101,31 +117,43 @@ void alter(char  t[]){
     }
     cout<<"\""<<t<<"\""<<endl;
 }
-bool compare(char a[],char b[]){
-    int l1=(int)strlen(a),l2=(int)strlen(b);
-    int i=0;
-    while(i<l1&&i<l2){
-        if(a[i]==b[i])i++;
-        else{
-            if(a[i]>b[i]) return true;
-            else return false;
-        }
-    }
-    if(l1>l2)return true;
-    return false;
-}
+
 
 void sort(node *head,node *start){
+    static int i;
+    i++;
+    //cout<<i<<endl;
     if(head!=NULL&&head->next!=NULL&&head->word[0]==head->next->word[0]){
             if(compare(head->word,head->next->word)){
                 char temp[50];
                 strcpy(temp, head->word);
                 strcpy(head->word, head->next->word);
                 strcpy(head->next->word, temp);
-                sort(start,start);
+                if(i%3==0)sort(start,start);
             }
         sort(head->next,start);
         }
+    
+}
+
+void searchforword(node *head,char t[]){
+    int l=(int)strlen(t);
+    int ind=0;
+    while(head!=NULL){
+        int len=(int)strlen(head->word);
+        for(int i=0;i<len;i++){
+            if(head->word[i]==t[ind++]){
+                
+                if(ind==l){
+                    cout<<"Searched word \""<<head->word<<"\""<<endl;
+                    ind=0;
+                    break;
+                }
+            }else ind=0;
+        }
+        head=head->next;
+    }
+    
 }
 
 

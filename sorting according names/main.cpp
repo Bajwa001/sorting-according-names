@@ -30,7 +30,9 @@ int main(int argc, const char * argv[]) {
         if(indexinarray!=-1){
             alpha[indexinarray]=t[0];
         }
-        if(pointers[indexinarray]!=NULL) { insert(pointers[indexinarray],t,0);}
+        if(pointers[indexinarray]!=NULL) {
+            insert(pointers[indexinarray],t,0);
+        }
         else {pointers[indexinarray]=insert(head,t,1);
             if(head==NULL){
                 head=pointers[indexinarray];
@@ -50,5 +52,9 @@ int main(int argc, const char * argv[]) {
     cout<<"\nLinked list : \n";
     display(head);
     cout<<endl;
+    char t[50];
+    cin>>t;
+    alter(t);
+    searchforword(head,t);
     return 0;
 }
